@@ -21,10 +21,9 @@ from pathlib import Path
 
 class Upscale_rESRGAN(object):
     def __init__(self):
-    ##    options=["transcribe", "translate"],
 
         model_all_local_path = "models/RealESRGAN_x4plus_512.xml"
-        model_all_local_path = "./RealESRGAN_x4plus_768x1024.xml"
+        #model_all_local_path = "./RealESRGAN_x4plus_768x1024.xml"
     
         print("Start Model loading RealESRGAN_x4plus 512x512---")
         self.output_folder = "output/"
@@ -79,7 +78,7 @@ class Upscale_rESRGAN(object):
         image = image / 255.0
         image = np.transpose(image, (2, 0, 1))
         image = image.reshape(1, *image.shape)   
-        #transcription = self.model.transcribe(audio)
+  
         print("image.shape: ", image.shape, self.input_width, self.input_height)
         
         input_data = {self.input_tensor_name: image}
@@ -87,12 +86,6 @@ class Upscale_rESRGAN(object):
         result = self.infer_request.infer(input_data)[self.output_tensor]
 
         t2 = time.time()
-        core = ov.Core()
-        upsample_model_path = "RealESRGAN_x4plus_768x1024.xml"
-        upsample_model = core.read_model(upsample_model_path)
-        compiled_model = core.compile_model(upsample_model, device_name="GPU")
-        result = compiled_model(image)[compiled_model.output(0)]
-
         print("resrgan execution time: {:.2f} seconds".format(t2-t1) )
         output = result[0].squeeze()
         output = np.clip(output, 0, 1) * 255.0
@@ -103,11 +96,7 @@ class Upscale_rESRGAN(object):
 
              
 if __name__ == "__main__":
-
-    #True menas to use whisper small, other wise use whisper medium
-    #image_path = '../inputs/wolf_gray.jpg'
-    #image_path = '../inputs/0014.jpg'
-    #image_path = '/home/a770/crystal/llm/audiollm/output/2023-09-28_10-08-53.png'
+    #define image path to inference
     t0 = time.time()
     image_path = "./7.png"
     output_folder = "output/"
