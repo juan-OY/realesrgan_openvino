@@ -119,20 +119,16 @@ class Upscale_rESRGAN(object):
              
 if __name__ == "__main__":
 
-    #True menas to use whisper small, other wise use whisper medium
-    #image_path = '../inputs/wolf_gray.jpg'
-    #image_path = '../inputs/children-alpha.png'
-    image_path = '/home/a770/crystal/llm/audiollm/output/2023-12-02_14-29-58.png'
+    image_path = './2023-12-02_14-29-58.png'
     output_folder = "output/"
     upscaler = Upscale_rESRGAN()
     image = upscaler.run(image_path)
-    #print(image)
     print(image.shape)
 
     filename = os.path.basename(image_path)  # 获取文件名（例如：'0014.jpg'）
     image_name = os.path.splitext(filename)[0]  # 移除文件扩展名（例如：'0014'）
 
-    output_path = str(Path(output_folder) / (image_name + "x4.jpg"))
+    output_path = str(Path(output_folder) / (image_name + "dynamic.jpg"))
     print("output path: ", output_path)
     cv2.imwrite(output_path, image)
 
