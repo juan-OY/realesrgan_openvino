@@ -9,7 +9,6 @@
 #Requirement dependency includes 
 #pip install "openvino>=2023.1.0"
 #pip install opencv-python
-#pip install pillow matplotlib
 
 import os
 import openvino as ov
