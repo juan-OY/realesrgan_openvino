@@ -55,5 +55,11 @@ pip install "openvino>=2023.1.0"
 pip install opencv-python
 ```
 ## Convert Model to MO file
+```
+python model_convert.py
+```
 
-
+## run the model
+```
+python resrgan_inference_static.py
+```
